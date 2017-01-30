@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Plot</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="system/styles/igrX.css" />
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" media="screen, print" href="system/styles/plot.compat.css" />
+    <![endif]-->
+</head>
+<body>
+    <div class='trend' id='placeholder' style='top:0;left:0;min-width:1000px'></div>
+</body>
+
+<script type="text/javascript" src="system/scripts/igrX.js"></script>
+<script type="text/javascript">
+
+var pen = [
+    {
+        name: 'Tank Level',
+        enabled: true,
+        unit: 'meters',
+        min: 0,
+        max: 60,
+        pens: [
+            {
+                name: 'Level',
+                tag: 'tank_level',
+                format: '#.###'
+            }
+        ]
+    },
+
+];
+var opt = {
+    'gridx': 10,
+    'skip': true,
+    'lograte': 5000,
+    'title': 'Tank Level',
+    'backgroundColor': 'white',
+    'refLineColor': 'black',
+	//'showMarker': true,
+    'lineWidth': 2
+};
+
+var plot = igrx.trend( '#placeholder', {
+    'pen_setting': pen,
+    'option': opt
+});
+
+</script>
+</html>

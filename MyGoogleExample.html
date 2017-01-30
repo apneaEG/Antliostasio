@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Info windows</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+	<script type="text/javascript" src="system/scripts/igrX.js"></script>
+    <script>
+
+      // This example displays a marker at the center of Aitwloakarnania Area.
+      // When the user mouse over the marker, an info window opens.
+      function initMap() {
+        var katoxi = {lat: 38.41191, lng: 21.25281};
+        var aitwliko = {lat: 38.43651, lng: 21.35399};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: katoxi
+        });
+
+// Set content string for each site
+		var KatoxiString = '<div id="content">' + '<span>Tag Value: </span>' + '<span id=\'{attr:"get",tag:"tank1_level"}\'></span>' + '<span> / 9 </span>' + '</div>';	
+		var AitwlikoString = '<div id="content">'+ '<span>Tag Value: </span>' + '<span id=\'{attr:"get",tag:"tank2_level"}\'></span>' + '<span> / 10 </span>' + '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: KatoxiString
+        });
+
+// Set markers for all sites
+        var marker = new google.maps.Marker({
+          position: katoxi,
+          map: map,
+          title: 'Antliostasio Katoxi'
+        });
+		
+	//	
+		     
+       marker.info = new google.maps.InfoWindow({
+
+          content: KatoxiString
+        });
+        google.maps.event.addListener(marker,'mouseover', function() {
+
+          if (!marker.info.isOpen()) {
+            marker.info.open(map, marker);
+          }
+		  	
+
+		});
+        google.maps.event.addListener(marker,'click', function() {
+ 			window.open("index.html#Antliostasio_F1F2.svg","_parent");
+        });       
+    
+        var marker2 = new google.maps.Marker({
+          position: aitwliko,
+          map: map,
+          title: 'Antliostasio Aitwliko'
+        });
+
+        marker2.info = new google.maps.InfoWindow({
+
+
+          content: AitwlikoString
+
+        });
+        google.maps.event.addListener(marker2,'click', function() {
+
+			marker2.info.setContent('<div id="content">' + '<span>Tag Value: </span>' + '<span id=\'{attr:"get",tag:"tank1_level"}\'></span>' + '<span> / 9 </span>' + '</div>');
+            marker2.info.open(map, marker2);
+        });
+
+// Set mouserover events for all sites
+
+ 
+
+		marker.info.open(map,marker);
+		marker2.info.open(map,marker2);
+
+//////////////////////////////////////////////////////////				
+      }
+	  
+	  // Initialize IGX htm Engine
+	 $(document).ready( function() {
+		setTimeout( function() {
+			var index = new window['htmEngine'](document.getElementsByTagName('html')[0]);
+		}, 500);
+	});
+	
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8fqZjMB4olRnAhhRv7LmICbNagm84wuw&callback=initMap">
+    </script>
+  </body>
+</html>
